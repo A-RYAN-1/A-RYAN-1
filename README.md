@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-  <img alt="Aryan Deshmukh, backend engineer in Pune" src="assets/banner-light.svg" width="100%">
+  <img alt="Aryan Deshmukh, full stack software developer in Pune" src="assets/banner-light.svg" width="100%">
 </picture>
 
 <br>
