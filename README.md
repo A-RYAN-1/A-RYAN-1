@@ -31,41 +31,49 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 | **Frontend** | ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) |
 | **Data and cloud** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) |
 
-## Featured projects
+## Selected fixes
 
-All three are deployed and have a demo login in their README.
+I send fixes upstream for what I run into on Kubernetes tooling, reproduce each one before claiming it, and keep the evidence next to the change.
 
-| Project | What it does | Stack |
-|---|---|---|
-| [**smart-rule-based-approval-engine**](https://github.com/A-RYAN-1/smart-rule-based-approval-engine) | Rules engine that auto-approves, escalates or rejects leave, expense and discount requests. [Live demo](https://smart-rule-based-approval-engine.vercel.app) | Go, Gin, PostgreSQL, React |
-| [**fintech-fraud-detection**](https://github.com/A-RYAN-1/fintech-fraud-detection) | Real-time transaction fraud detection: Rails API with risk rules and Solid Queue, plus a React dashboard. I wrote the backend. [Live demo](https://fintech-fraud-detection-aryan.vercel.app) | Rails, PostgreSQL, React |
-| [**node-connect**](https://github.com/A-RYAN-1/node-connect) | Decentralised chat with MetaMask sign-in and token rewards on a testnet. [Live demo](https://node-connect-sigma.vercel.app) | Solidity, Hardhat, Next.js |
+### Kepler: the Helm chart now runs unprivileged by default
 
-## Open source
+- Failure: the chart ran Kepler, a per-node energy exporter, as `privileged: true`, which many clusters refuse. Dropping to the capabilities the issue suggested failed with `readlink /host/proc/1/exe: permission denied`.
+- Fix: I showed on a kind cluster that `SYS_PTRACE` alone is enough, then made it the default (drop all capabilities, add only that one) with `privileged: true` still one value away. The template handles upgrades from existing privileged releases, AppArmor (an annotation below Kubernetes 1.30), SELinux and GPU nodes.
+- Result: 587 `kepler_` metric lines unprivileged against 604 privileged, and the difference is Kepler's own pod, now documented. Review found a silent failure on cgroupfs nodes (0 container and 0 pod series), fixed in a second PR (72 and 36 series after), and a CI check in a third PR fails if they ever disappear again.
+- Seven review rounds, final head approved 9/10. [PR #2584](https://github.com/sustainable-computing-io/kepler/pull/2584), [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591), [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592), merged 2026-10-18 and 2026-10-20
 
-Merged pull requests, reviewed by the maintainers:
+### Prometheus Operator: bad AlertmanagerConfig and ScrapeConfig input caught early
 
-| Project | Change |
-|---|---|
-| [hluk/CopyQ](https://github.com/hluk/CopyQ) ![stars](https://img.shields.io/github/stars/hluk/CopyQ?style=flat-square&logo=github&color=lightgrey) | [Add option to hide the menu bar](https://github.com/hluk/CopyQ/pull/3732) and [hide the window frame](https://github.com/hluk/CopyQ/pull/3733) (C++, Qt) |
-| [ONEARMY/community-platform](https://github.com/ONEARMY/community-platform) ![stars](https://img.shields.io/github/stars/ONEARMY/community-platform?style=flat-square&logo=github&color=lightgrey) | Migrated [Breadcrumbs](https://github.com/ONEARMY/community-platform/pull/4946), [CharacterCount](https://github.com/ONEARMY/community-platform/pull/4950) and the [admin layout breadcrumbs](https://github.com/ONEARMY/community-platform/pull/4954) to the shared UI library (React, TypeScript) |
-| [sustainable-computing-io/kepler](https://github.com/sustainable-computing-io/kepler) ![stars](https://img.shields.io/github/stars/sustainable-computing-io/kepler?style=flat-square&logo=github&color=lightgrey) | Made the Helm chart run [unprivileged by default](https://github.com/sustainable-computing-io/kepler/pull/2584), fixed [pod attribution on cgroupfs nodes](https://github.com/sustainable-computing-io/kepler/pull/2591) it exposed, and added a [CI check](https://github.com/sustainable-computing-io/kepler/pull/2592) that fails when workload metrics disappear (Go, Helm, Kubernetes) |
-| [prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) ![stars](https://img.shields.io/github/stars/prometheus-operator/prometheus-operator?style=flat-square&logo=github&color=lightgrey) | Validation and config-generation fixes: [duplicate time intervals](https://github.com/prometheus-operator/prometheus-operator/pull/8896), [Webex credentials](https://github.com/prometheus-operator/prometheus-operator/pull/8897) and [Azure discovery settings](https://github.com/prometheus-operator/prometheus-operator/pull/8898) (Go, Kubernetes) |
+- Failure: the operator accepted an AlertmanagerConfig with two time intervals of the same name, or a Webex receiver with no credentials, and Alertmanager then refused to load it, far from the mistake. Separately, the ScrapeConfig generator never wrote the TLS, redirect and HTTP/2 settings for Azure discovery, and setting the Azure environment dropped the authorization and proxy settings written before it.
+- Fix: validation for both API versions, and the missing fields written with the generator's own helpers. A reviewer showed my first Webex rule would reject the `bearerTokenSecret` form that works today, so the rule now accepts every form that feeds the same setting.
+- Result: each change pinned by tests that fail without it; the Azure one by golden-file tests, including a new case combining environment, authorization, proxy and redirects.
+- [PR #8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896), [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897), [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898), merged 2026-10-19 and 2026-10-20
 
-More pull requests are open in cert-manager, OpenTelemetry Operator, Rook and Argo Rollouts; GitHub lists them under "Contributed to" on my profile.
+### CopyQ: a frameless window and a hidden menu bar
 
-Latest merged:
+- Failure: users wanted a compact clipboard manager with no window frame and no menu bar. The option existed in the code with no way to turn it on.
+- Fix: before writing any of it I built a throwaway Qt window and ran it natively on Wayland, where applications cannot position their own windows, to prove that dragging and resizing a frameless window works there. Then the preferences checkbox, a resize grip, dragging from the window body, and an item list that passes presses on its empty area through.
+- Result: three review rounds with the maintainer (safe grip cleanup, the same fix in the tab tree, and two tests merged into one that skips macOS); the second PR hid the menu bar. [PR #3733](https://github.com/hluk/CopyQ/pull/3733), [#3732](https://github.com/hluk/CopyQ/pull/3732), merged 2026-10-08 and 2026-10-10
 
-<!-- prs:start -->
-- [sustainable-computing-io/kepler](https://github.com/sustainable-computing-io/kepler): [fix(helm): run the DaemonSet unprivileged by default](https://github.com/sustainable-computing-io/kepler/pull/2584), merged Oct 2026
-- [prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator): [fix: keep Azure SD HTTP client settings in generated scrape config](https://github.com/prometheus-operator/prometheus-operator/pull/8898), merged Oct 2026
-- [prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator): [fix: require httpConfig.authorization for Webex receivers](https://github.com/prometheus-operator/prometheus-operator/pull/8897), merged Oct 2026
-- [prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator): [fix: reject duplicate time interval names in AlertmanagerConfig](https://github.com/prometheus-operator/prometheus-operator/pull/8896), merged Oct 2026
-- [sustainable-computing-io/kepler](https://github.com/sustainable-computing-io/kepler): [fix(resource): match cgroupfs pod paths read from a cgroup namespace](https://github.com/sustainable-computing-io/kepler/pull/2591), merged Oct 2026
-- [sustainable-computing-io/kepler](https://github.com/sustainable-computing-io/kepler): [ci(k8s): check workload metrics after the Helm install](https://github.com/sustainable-computing-io/kepler/pull/2592), merged Oct 2026
-- [hluk/CopyQ](https://github.com/hluk/CopyQ): [Add option to hide the menu bar](https://github.com/hluk/CopyQ/pull/3732), merged Oct 2026
-- [hluk/CopyQ](https://github.com/hluk/CopyQ): [Add option to hide the window frame](https://github.com/hluk/CopyQ/pull/3733), merged Oct 2026
-<!-- prs:end -->
+## Contributions
+
+<p align="center">
+  <a href="https://github.com/sustainable-computing-io/kepler"><img src="https://github.com/sustainable-computing-io.png?size=64" width="48" height="48" alt="Kepler" title="Kepler"></a>
+  <a href="https://github.com/prometheus-operator/prometheus-operator"><img src="https://github.com/prometheus-operator.png?size=64" width="48" height="48" alt="Prometheus Operator" title="Prometheus Operator"></a>
+  <a href="https://github.com/hluk/CopyQ"><img src="https://github.com/hluk.png?size=64" width="48" height="48" alt="CopyQ" title="CopyQ"></a>
+  <a href="https://github.com/ONEARMY/community-platform"><img src="https://github.com/ONEARMY.png?size=64" width="48" height="48" alt="ONEARMY community-platform" title="ONEARMY community-platform"></a>
+</p>
+
+<!-- contrib:start -->
+| Project | What it is | Merged PRs | Stars |
+|---|---|---|---|
+| [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator) | Kubernetes operator for Prometheus and Alertmanager | 3 | ![stars](https://img.shields.io/github/stars/prometheus-operator/prometheus-operator?style=flat-square&logo=github&color=lightgrey) |
+| [Kepler](https://github.com/sustainable-computing-io/kepler) | Energy use per Kubernetes pod and container, as Prometheus metrics | 3 | ![stars](https://img.shields.io/github/stars/sustainable-computing-io/kepler?style=flat-square&logo=github&color=lightgrey) |
+| [community-platform](https://github.com/ONEARMY/community-platform) | Precious Plastic community platform (React, TypeScript) | 3 | ![stars](https://img.shields.io/github/stars/ONEARMY/community-platform?style=flat-square&logo=github&color=lightgrey) |
+| [CopyQ](https://github.com/hluk/CopyQ) | Clipboard manager with advanced features (C++, Qt) | 2 | ![stars](https://img.shields.io/github/stars/hluk/CopyQ?style=flat-square&logo=github&color=lightgrey) |
+<!-- contrib:end -->
+
+Open now: [cert-manager](https://github.com/cert-manager/cert-manager), [OpenTelemetry Operator](https://github.com/open-telemetry/opentelemetry-operator), [Rook](https://github.com/rook/rook) and [Argo Rollouts](https://github.com/argoproj/argo-rollouts). GitHub lists them under "Contributed to" on this profile.
 
 ## Writing
 
