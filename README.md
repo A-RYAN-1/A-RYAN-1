@@ -33,27 +33,25 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 
 ## Selected fixes
 
-I send fixes upstream for what I run into on Kubernetes tooling, reproduce each one before claiming it, and keep the evidence next to the change.
+Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 
 ### Kepler: the Helm chart now runs unprivileged by default
 
-- Failure: the chart ran Kepler, a per-node energy exporter, as `privileged: true`, which many clusters refuse. Dropping to the capabilities the issue suggested failed with `readlink /host/proc/1/exe: permission denied`.
-- Fix: I showed on a kind cluster that `SYS_PTRACE` alone is enough, then made it the default (drop all capabilities, add only that one) with `privileged: true` still one value away. The template handles upgrades from existing privileged releases, AppArmor (an annotation below Kubernetes 1.30), SELinux and GPU nodes.
-- Result: 587 `kepler_` metric lines unprivileged against 604 privileged, and the difference is Kepler's own pod, now documented. Review found a silent failure on cgroupfs nodes (0 container and 0 pod series), fixed in a second PR (72 and 36 series after), and a CI check in a third PR fails if they ever disappear again.
-- Seven review rounds, final head approved 9/10. [PR #2584](https://github.com/sustainable-computing-io/kepler/pull/2584), [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591), [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592), merged 2026-10-18 and 2026-10-20
+- Failure: the chart ran the exporter as `privileged: true`, which many clusters refuse.
+- Fix: showed on a kind cluster that `SYS_PTRACE` alone is enough and made it the default, with `privileged: true` one value away; upgrades, AppArmor, SELinux and GPU nodes handled.
+- Result: 587 metric lines unprivileged against 604 privileged. Review found 0 container and 0 pod series on cgroupfs nodes; the second PR restored them (72 and 36) and a CI check in the third guards them. [PR #2584](https://github.com/sustainable-computing-io/kepler/pull/2584), [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591), [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592)
 
 ### Prometheus Operator: bad AlertmanagerConfig and ScrapeConfig input caught early
 
-- Failure: the operator accepted an AlertmanagerConfig with two time intervals of the same name, or a Webex receiver with no credentials, and Alertmanager then refused to load it, far from the mistake. Separately, the ScrapeConfig generator never wrote the TLS, redirect and HTTP/2 settings for Azure discovery, and setting the Azure environment dropped the authorization and proxy settings written before it.
-- Fix: validation for both API versions, and the missing fields written with the generator's own helpers. A reviewer showed my first Webex rule would reject the `bearerTokenSecret` form that works today, so the rule now accepts every form that feeds the same setting.
-- Result: each change pinned by tests that fail without it; the Azure one by golden-file tests, including a new case combining environment, authorization, proxy and redirects.
-- [PR #8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896), [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897), [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898), merged 2026-10-19 and 2026-10-20
+- Failure: the operator accepted duplicate time intervals and credential-less Webex receivers that Alertmanager then refused, and its Azure discovery silently dropped settings.
+- Fix: validation for both API versions, and the missing Azure fields written with the generator's own helpers.
+- Result: every change pinned by tests that fail without it, including a golden-file case combining environment, authorization, proxy and redirects. [PR #8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896), [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897), [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898)
 
 ### CopyQ: a frameless window and a hidden menu bar
 
-- Failure: users wanted a compact clipboard manager with no window frame and no menu bar. The option existed in the code with no way to turn it on.
-- Fix: before writing any of it I built a throwaway Qt window and ran it natively on Wayland, where applications cannot position their own windows, to prove that dragging and resizing a frameless window works there. Then the preferences checkbox, a resize grip, dragging from the window body, and an item list that passes presses on its empty area through.
-- Result: three review rounds with the maintainer (safe grip cleanup, the same fix in the tab tree, and two tests merged into one that skips macOS); the second PR hid the menu bar. [PR #3733](https://github.com/hluk/CopyQ/pull/3733), [#3732](https://github.com/hluk/CopyQ/pull/3732), merged 2026-10-08 and 2026-10-10
+- Failure: users wanted a compact clipboard manager; the frameless option existed in code with no way to turn it on.
+- Fix: proved dragging and resizing work on Wayland with a throwaway Qt window first, then built the checkbox, resize grip and drag-from-body; the menu bar collapses to zero height so its shortcuts still work.
+- Result: eight review rounds across two PRs, both merged. [PR #3733](https://github.com/hluk/CopyQ/pull/3733), [#3732](https://github.com/hluk/CopyQ/pull/3732)
 
 ## Contributions
 
@@ -79,9 +77,9 @@ Open now: [cert-manager](https://github.com/cert-manager/cert-manager), [OpenTel
 
 Production bugs, written as stories with the measured fix.
 
-- [The Water That Flowed Backwards](https://medium.com/@aryan0deshmukh/the-water-that-flowed-backwards-2a7d6bb04c7c): one line of Go made water meters report negative consumption, and the fix we added afterwards was the same bug in disguise.
-- [The Restart Command That Only Worked When a Human Typed It](https://medium.com/@aryan0deshmukh/the-restart-command-that-only-worked-when-a-human-typed-it-941d30319d22): a supervisor ran the restart and failed every time. The command was right; the shell it ran in was not.
-- [The Fix That Only Reached Half the Server](https://medium.com/@aryan0deshmukh/the-fix-that-only-reached-half-the-server-942aeb0665ac): we fixed a config file, restarted the app and watched one feature recover while the other kept failing for a day and a half.
+- [The Water That Flowed Backwards](https://medium.com/@aryan0deshmukh/the-water-that-flowed-backwards-2a7d6bb04c7c): one line of Go made meters report negative consumption.
+- [The Restart Command That Only Worked When a Human Typed It](https://medium.com/@aryan0deshmukh/the-restart-command-that-only-worked-when-a-human-typed-it-941d30319d22): the command was right; the shell was not.
+- [The Fix That Only Reached Half the Server](https://medium.com/@aryan0deshmukh/the-fix-that-only-reached-half-the-server-942aeb0665ac): one feature recovered after a config fix while the other failed for a day and a half.
 
 ## Get in touch
 
