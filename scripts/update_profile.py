@@ -160,9 +160,9 @@ def activity_svg(c, total, weeks):
     return s + "</svg>"
 
 
-def pr_table(prs):
+def pr_table(prs, stars):
     rows = ["| Project | What it is | Merged PRs | Stars |", "|---|---|---|---|"]
-    for repo, nums in sorted(prs.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+    for repo, nums in sorted(prs.items(), key=lambda kv: (-stars.get(kv[0], 0), kv[0])):
         name, desc = WHAT.get(repo, (repo.split("/")[1], "TODO: describe in WHAT"))
         links = " ".join(f"[#{n}](https://github.com/{repo}/pull/{n})" for n in nums)
         badge = f"![stars](https://img.shields.io/github/stars/{repo}?style=flat-square&logo=github&color=lightgrey)"
@@ -196,7 +196,7 @@ def main():
         (ASSETS / f"activity-{n}.svg").write_text(activity_svg(c, total, weeks), encoding="utf-8")
     alt = f"{n_prs} open-source PRs merged, {lc['total']} LeetCode problems solved, {posts} engineering posts, {live} projects live"
     text = re.sub(r'(<!-- numbers:start -->.*?<img alt=")[^"]*(")', lambda m: m.group(1) + alt + m.group(2), text, flags=re.S)
-    text = replace_block(text, "contrib", pr_table(prs))
+    text = replace_block(text, "contrib", pr_table(prs, {r: gh_get(f"/repos/{r}", tok)["stargazers_count"] for r in prs}))
     new = text.replace("\n", "\r\n") if "\r\n" in raw else text
     if new != raw:
         README.write_bytes(new.encode("utf-8"))
