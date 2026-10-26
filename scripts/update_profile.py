@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Refresh the live parts of the profile: assets/numbers-*.svg, assets/leetcode-*.svg,
-assets/activity-*.svg and the generated blocks of README.md (numbers alt text, contributions table).
+assets/activity-*.svg and the generated blocks of README.md (numbers alt text, logo row, contributions table, open-PR line).
 Standard library only. Needs GITHUB_TOKEN or GH_TOKEN (or `gh auth token`) for GitHub; LeetCode is public.
 Run by .github/workflows/update-profile.yml every day, or by hand from the repo root."""
 import json
@@ -23,6 +23,7 @@ WHAT = {
     "sustainable-computing-io/kepler": ("Kepler", "Energy use per Kubernetes pod and container, as Prometheus metrics"),
     "prometheus-operator/prometheus-operator": ("Prometheus Operator", "Kubernetes operator for Prometheus and Alertmanager"),
     "hluk/CopyQ": ("CopyQ", "Clipboard manager with advanced features (C++, Qt)"),
+    "actualbudget/actual": ("actual", "Local-first personal finance and budgeting app (TypeScript)"),
     "ONEARMY/community-platform": ("community-platform", "Precious Plastic community platform (React, TypeScript)"),
 }
 THEMES = {
@@ -88,6 +89,22 @@ def merged_prs(tok):
             break
         page += 1
     return {r: sorted(n) for r, n in out.items()}
+
+
+def open_repos(tok):
+    """Repos outside ours where we have an open PR."""
+    out = set()
+    page = 1
+    while True:
+        d = gh_get(f"/search/issues?q=author:{ME}+is:pr+is:open&per_page=100&page={page}", tok)
+        for it in d["items"]:
+            repo = it["repository_url"].split("/repos/")[1]
+            if repo.split("/")[0].lower() not in SKIP_OWNERS:
+                out.add(repo)
+        if len(d["items"]) < 100:
+            break
+        page += 1
+    return out
 
 
 def live_projects(tok):
@@ -160,14 +177,50 @@ def activity_svg(c, total, weeks):
     return s + "</svg>"
 
 
-def pr_table(prs, stars):
-    rows = ["| Project | What it is | Merged PRs | Stars |", "|---|---|---|---|"]
-    for repo, nums in sorted(prs.items(), key=lambda kv: (-stars.get(kv[0], 0), kv[0])):
-        name, desc = WHAT.get(repo, (repo.split("/")[1], "TODO: describe in WHAT"))
+def ranked(prs, info):
+    return sorted(prs.items(), key=lambda kv: (-info[kv[0]]["stargazers_count"], kv[0]))
+
+
+def display(repo, info):
+    if repo in WHAT:
+        return WHAT[repo]
+    desc = (info.get("description") or "").strip()
+    if len(desc) > 90:
+        desc = desc[:87].rsplit(" ", 1)[0] + "..."
+    return repo.split("/")[1], desc
+
+
+def pr_table(prs, info):
+    rows = ["| # | Project | What it is | Merged PRs | Stars |", "|---|---|---|---|---|"]
+    for i, (repo, nums) in enumerate(ranked(prs, info), 1):
+        name, desc = display(repo, info[repo])
         links = " ".join(f"[#{n}](https://github.com/{repo}/pull/{n})" for n in nums)
         badge = f"![stars](https://img.shields.io/github/stars/{repo}?style=flat-square&logo=github&color=lightgrey)"
-        rows.append(f"| [{name}](https://github.com/{repo}) | {desc} | {links} | {badge} |")
+        rows.append(f"| {i} | [{name}](https://github.com/{repo}) | {desc} | {links} | {badge} |")
     return "\n".join(rows)
+
+
+def logo_row(prs, info):
+    out = ['<p align="center">']
+    for repo, _ in ranked(prs, info):
+        name, _d = display(repo, info[repo])
+        owner = repo.split("/")[0]
+        out.append(f'  <a href="https://github.com/{repo}"><img src="https://github.com/{owner}.png?size=64" width="48" height="48" alt="{name}" title="{name}"></a>')
+    out.append("</p>")
+    return "\n".join(out)
+
+
+def open_line(open_set, merged, info):
+    names = []
+    ordered = sorted(open_set, key=lambda r: (-info[r]["stargazers_count"], r))
+    for repo in ordered[:6]:
+        names.append(f"[{display(repo, info[repo])[0]}](https://github.com/{repo})")
+    if not names:
+        return ""
+    if len(ordered) > 6:
+        names.append(f"{len(ordered) - 6} more")
+    joined = ", ".join(names[:-1]) + " and " + names[-1] if len(names) > 1 else names[0]
+    return f'Open now: {joined}. GitHub lists them under "Contributed to" on this profile.'
 
 
 def replace_block(text, name, body):
@@ -196,7 +249,11 @@ def main():
         (ASSETS / f"activity-{n}.svg").write_text(activity_svg(c, total, weeks), encoding="utf-8")
     alt = f"{n_prs} open-source PRs merged, {lc['total']} LeetCode problems solved, {posts} engineering posts, {live} projects live"
     text = re.sub(r'(<!-- numbers:start -->.*?<img alt=")[^"]*(")', lambda m: m.group(1) + alt + m.group(2), text, flags=re.S)
-    text = replace_block(text, "contrib", pr_table(prs, {r: gh_get(f"/repos/{r}", tok)["stargazers_count"] for r in prs}))
+    opened = open_repos(tok)
+    info = {r: gh_get(f"/repos/{r}", tok) for r in set(prs) | opened}
+    text = replace_block(text, "logos", logo_row(prs, info))
+    text = replace_block(text, "contrib", pr_table(prs, info))
+    text = replace_block(text, "open", open_line(opened, prs, info))
     new = text.replace("\n", "\r\n") if "\r\n" in raw else text
     if new != raw:
         README.write_bytes(new.encode("utf-8"))

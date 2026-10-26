@@ -67,26 +67,31 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 
 ## Contributions
 
+<!-- logos:start -->
 <p align="center">
+  <a href="https://github.com/actualbudget/actual"><img src="https://github.com/actualbudget.png?size=64" width="48" height="48" alt="actual" title="actual"></a>
   <a href="https://github.com/hluk/CopyQ"><img src="https://github.com/hluk.png?size=64" width="48" height="48" alt="CopyQ" title="CopyQ"></a>
   <a href="https://github.com/prometheus-operator/prometheus-operator"><img src="https://github.com/prometheus-operator.png?size=64" width="48" height="48" alt="Prometheus Operator" title="Prometheus Operator"></a>
   <a href="https://github.com/sustainable-computing-io/kepler"><img src="https://github.com/sustainable-computing-io.png?size=64" width="48" height="48" alt="Kepler" title="Kepler"></a>
-  <a href="https://github.com/ONEARMY/community-platform"><img src="https://github.com/ONEARMY.png?size=64" width="48" height="48" alt="ONEARMY community-platform" title="ONEARMY community-platform"></a>
+  <a href="https://github.com/ONEARMY/community-platform"><img src="https://github.com/ONEARMY.png?size=64" width="48" height="48" alt="community-platform" title="community-platform"></a>
 </p>
+<!-- logos:end -->
 
 <!-- contrib:start -->
-| Project | What it is | Merged PRs | Stars |
-|---|---|---|---|
-| [actual](https://github.com/actualbudget/actual) | TODO: describe in WHAT | [#9299](https://github.com/actualbudget/actual/pull/9299) | ![stars](https://img.shields.io/github/stars/actualbudget/actual?style=flat-square&logo=github&color=lightgrey) |
-| [CopyQ](https://github.com/hluk/CopyQ) | Clipboard manager with advanced features (C++, Qt) | [#3732](https://github.com/hluk/CopyQ/pull/3732) [#3733](https://github.com/hluk/CopyQ/pull/3733) | ![stars](https://img.shields.io/github/stars/hluk/CopyQ?style=flat-square&logo=github&color=lightgrey) |
-| [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator) | Kubernetes operator for Prometheus and Alertmanager | [#8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896) [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897) [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898) | ![stars](https://img.shields.io/github/stars/prometheus-operator/prometheus-operator?style=flat-square&logo=github&color=lightgrey) |
-| [Kepler](https://github.com/sustainable-computing-io/kepler) | Energy use per Kubernetes pod and container, as Prometheus metrics | [#2584](https://github.com/sustainable-computing-io/kepler/pull/2584) [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591) [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592) | ![stars](https://img.shields.io/github/stars/sustainable-computing-io/kepler?style=flat-square&logo=github&color=lightgrey) |
-| [community-platform](https://github.com/ONEARMY/community-platform) | Precious Plastic community platform (React, TypeScript) | [#4946](https://github.com/ONEARMY/community-platform/pull/4946) [#4950](https://github.com/ONEARMY/community-platform/pull/4950) [#4954](https://github.com/ONEARMY/community-platform/pull/4954) | ![stars](https://img.shields.io/github/stars/ONEARMY/community-platform?style=flat-square&logo=github&color=lightgrey) |
+| # | Project | What it is | Merged PRs | Stars |
+|---|---|---|---|---|
+| 1 | [actual](https://github.com/actualbudget/actual) | Local-first personal finance and budgeting app (TypeScript) | [#9299](https://github.com/actualbudget/actual/pull/9299) | ![stars](https://img.shields.io/github/stars/actualbudget/actual?style=flat-square&logo=github&color=lightgrey) |
+| 2 | [CopyQ](https://github.com/hluk/CopyQ) | Clipboard manager with advanced features (C++, Qt) | [#3732](https://github.com/hluk/CopyQ/pull/3732) [#3733](https://github.com/hluk/CopyQ/pull/3733) | ![stars](https://img.shields.io/github/stars/hluk/CopyQ?style=flat-square&logo=github&color=lightgrey) |
+| 3 | [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator) | Kubernetes operator for Prometheus and Alertmanager | [#8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896) [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897) [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898) | ![stars](https://img.shields.io/github/stars/prometheus-operator/prometheus-operator?style=flat-square&logo=github&color=lightgrey) |
+| 4 | [Kepler](https://github.com/sustainable-computing-io/kepler) | Energy use per Kubernetes pod and container, as Prometheus metrics | [#2584](https://github.com/sustainable-computing-io/kepler/pull/2584) [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591) [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592) | ![stars](https://img.shields.io/github/stars/sustainable-computing-io/kepler?style=flat-square&logo=github&color=lightgrey) |
+| 5 | [community-platform](https://github.com/ONEARMY/community-platform) | Precious Plastic community platform (React, TypeScript) | [#4946](https://github.com/ONEARMY/community-platform/pull/4946) [#4950](https://github.com/ONEARMY/community-platform/pull/4950) [#4954](https://github.com/ONEARMY/community-platform/pull/4954) | ![stars](https://img.shields.io/github/stars/ONEARMY/community-platform?style=flat-square&logo=github&color=lightgrey) |
 <!-- contrib:end -->
 
 Every merged PR of mine outside my own repos: [see the full list on GitHub](https://github.com/pulls?q=is%3Apr+author%3AA-RYAN-1+is%3Amerged+-user%3AA-RYAN-1).
 
-Open now: [cert-manager](https://github.com/cert-manager/cert-manager), [OpenTelemetry Operator](https://github.com/open-telemetry/opentelemetry-operator), [Rook](https://github.com/rook/rook) and [Argo Rollouts](https://github.com/argoproj/argo-rollouts). GitHub lists them under "Contributed to" on this profile.
+<!-- open:start -->
+Open now: [litellm](https://github.com/BerriAI/litellm), [rclone](https://github.com/rclone/rclone), [tidb](https://github.com/pingcap/tidb), [chatwoot](https://github.com/chatwoot/chatwoot), [temporal](https://github.com/temporalio/temporal), [cert-manager](https://github.com/cert-manager/cert-manager) and 8 more. GitHub lists them under "Contributed to" on this profile.
+<!-- open:end -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg">
