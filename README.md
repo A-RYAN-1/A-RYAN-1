@@ -47,23 +47,23 @@ Mostly easy and medium problems in C++, updated daily from my [LeetCode profile]
 
 Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 
-### Kepler: the Helm chart now runs unprivileged by default
+### Actual Budget: bank sync outages now say what happened
 
-- Failure: the chart ran the exporter as `privileged: true`, which many clusters refuse.
-- Fix: showed on a kind cluster that `SYS_PTRACE` alone is enough and made it the default, with `privileged: true` one value away; upgrades, AppArmor, SELinux and GPU nodes handled.
-- Result: 587 metric lines unprivileged against 604 privileged. Review found 0 container and 0 pod series on cgroupfs nodes; the second PR restored them (72 and 36) and a CI check in the third guards them. [PR #2584](https://github.com/sustainable-computing-io/kepler/pull/2584), [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591), [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592)
-
-### Prometheus Operator: bad AlertmanagerConfig and ScrapeConfig input caught early
-
-- Failure: the operator accepted duplicate time intervals and credential-less Webex receivers that Alertmanager then refused, and its Azure discovery silently dropped settings.
-- Fix: validation for both API versions, and the missing Azure fields written with the generator's own helpers.
-- Result: every change pinned by tests that fail without it, including a golden-file case combining environment, authorization, proxy and redirects. [PR #8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896), [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897), [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898)
+- Failure: when SimpleFIN returned a maintenance page, the sync banner showed "An internal error occurred". The server had since learned to answer `SERVER_DOWN`, but the client had no mapping for it.
+- Fix: a new `server-down` sync status carried through the account model, the database type and the error mapping, with its own banner message. No migration was needed because the column is free text.
+- Result: three tests, one per layer, that fail without the change and pass with it; typecheck clean. [PR #9299](https://github.com/actualbudget/actual/pull/9299)
 
 ### CopyQ: a frameless window and a hidden menu bar
 
 - Failure: users wanted a compact clipboard manager; the frameless option existed in code with no way to turn it on.
 - Fix: proved dragging and resizing work on Wayland with a throwaway Qt window first, then built the checkbox, resize grip and drag-from-body; the menu bar collapses to zero height so its shortcuts still work.
 - Result: eight review rounds across two PRs, both merged. [PR #3733](https://github.com/hluk/CopyQ/pull/3733), [#3732](https://github.com/hluk/CopyQ/pull/3732)
+
+### Prometheus Operator: bad AlertmanagerConfig and ScrapeConfig input caught early
+
+- Failure: the operator accepted duplicate time intervals and credential-less Webex receivers that Alertmanager then refused, and its Azure discovery silently dropped settings.
+- Fix: validation for both API versions, and the missing Azure fields written with the generator's own helpers.
+- Result: every change pinned by tests that fail without it, including a golden-file case combining environment, authorization, proxy and redirects. [PR #8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896), [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897), [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898)
 
 ## Contributions
 
