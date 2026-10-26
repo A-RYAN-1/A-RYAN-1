@@ -20,7 +20,7 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 <!-- numbers:start -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/numbers-dark.svg">
-  <img alt="11 open-source PRs merged, 690 LeetCode problems solved, 3 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
+  <img alt="12 open-source PRs merged, 691 LeetCode problems solved, 3 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
 </picture>
 <!-- numbers:end -->
 
@@ -77,6 +77,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 <!-- contrib:start -->
 | Project | What it is | Merged PRs | Stars |
 |---|---|---|---|
+| [actual](https://github.com/actualbudget/actual) | TODO: describe in WHAT | [#9299](https://github.com/actualbudget/actual/pull/9299) | ![stars](https://img.shields.io/github/stars/actualbudget/actual?style=flat-square&logo=github&color=lightgrey) |
 | [CopyQ](https://github.com/hluk/CopyQ) | Clipboard manager with advanced features (C++, Qt) | [#3732](https://github.com/hluk/CopyQ/pull/3732) [#3733](https://github.com/hluk/CopyQ/pull/3733) | ![stars](https://img.shields.io/github/stars/hluk/CopyQ?style=flat-square&logo=github&color=lightgrey) |
 | [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator) | Kubernetes operator for Prometheus and Alertmanager | [#8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896) [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897) [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898) | ![stars](https://img.shields.io/github/stars/prometheus-operator/prometheus-operator?style=flat-square&logo=github&color=lightgrey) |
 | [Kepler](https://github.com/sustainable-computing-io/kepler) | Energy use per Kubernetes pod and container, as Prometheus metrics | [#2584](https://github.com/sustainable-computing-io/kepler/pull/2584) [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591) [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592) | ![stars](https://img.shields.io/github/stars/sustainable-computing-io/kepler?style=flat-square&logo=github&color=lightgrey) |
