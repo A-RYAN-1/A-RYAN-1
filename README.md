@@ -20,7 +20,7 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 <!-- numbers:start -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/numbers-dark.svg">
-  <img alt="12 open-source PRs merged, 694 LeetCode problems solved, 3 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
+  <img alt="12 open-source PRs merged, 695 LeetCode problems solved, 3 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
 </picture>
 <!-- numbers:end -->
 
@@ -90,7 +90,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 Every merged PR of mine outside my own repos: [see the full list on GitHub](https://github.com/pulls?q=is%3Apr+author%3AA-RYAN-1+is%3Amerged+-user%3AA-RYAN-1).
 
 <!-- open:start -->
-Open now: [litellm](https://github.com/BerriAI/litellm), [rclone](https://github.com/rclone/rclone), [tidb](https://github.com/pingcap/tidb), [chatwoot](https://github.com/chatwoot/chatwoot), [temporal](https://github.com/temporalio/temporal), [cert-manager](https://github.com/cert-manager/cert-manager) and 8 more. GitHub lists them under "Contributed to" on this profile.
+Open now: [litellm](https://github.com/BerriAI/litellm), [rclone](https://github.com/rclone/rclone), [tidb](https://github.com/pingcap/tidb), [chatwoot](https://github.com/chatwoot/chatwoot), [temporal](https://github.com/temporalio/temporal), [cert-manager](https://github.com/cert-manager/cert-manager) and 6 more. GitHub lists them under "Contributed to" on this profile.
 <!-- open:end -->
 
 <picture>
