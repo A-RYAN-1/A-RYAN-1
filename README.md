@@ -95,7 +95,7 @@ Every merged PR of mine outside my own repos: [see the full list on GitHub](http
 The CopyQ menu bar commit is indexed in the [XERJ Corpus Hub](https://hub.xerj.org/contributors/A-RYAN-1) as reference code for AI coding agents.
 
 <!-- open:start -->
-Open now: [ollama](https://github.com/ollama/ollama), [litellm](https://github.com/BerriAI/litellm), [rclone](https://github.com/rclone/rclone), [tidb](https://github.com/pingcap/tidb), [chatwoot](https://github.com/chatwoot/chatwoot), [temporal](https://github.com/temporalio/temporal) and 6 more. GitHub lists them under "Contributed to" on this profile.
+Open now: [ollama](https://github.com/ollama/ollama), [litellm](https://github.com/BerriAI/litellm), [rclone](https://github.com/rclone/rclone), [tidb](https://github.com/pingcap/tidb), [chatwoot](https://github.com/chatwoot/chatwoot), [temporal](https://github.com/temporalio/temporal) and 7 more. GitHub lists them under "Contributed to" on this profile.
 <!-- open:end -->
 
 ## Writing
