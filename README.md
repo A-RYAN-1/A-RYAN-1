@@ -20,7 +20,7 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 <!-- numbers:start -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/numbers-dark.svg">
-  <img alt="14 open-source PRs merged, 696 LeetCode problems solved, 3 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
+  <img alt="14 open-source PRs merged, 697 LeetCode problems solved, 3 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
 </picture>
 <!-- numbers:end -->
 
