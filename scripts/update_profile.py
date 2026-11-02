@@ -25,6 +25,7 @@ WHAT = {
     "hluk/CopyQ": ("CopyQ", "Clipboard manager with advanced features (C++, Qt)"),
     "actualbudget/actual": ("actual", "Local-first personal finance and budgeting app (TypeScript)"),
     "ONEARMY/community-platform": ("community-platform", "Precious Plastic community platform (React, TypeScript)"),
+    "rubyforgood/casa": ("casa", "Multi-tenant case management for CASA child-advocacy programs (Ruby on Rails)"),
 }
 THEMES = {
     "light": dict(bg1="#f6f8fa", bg2="#e6edf7", ink="#0d1117", mut="#57606a", acc="#0969da", acc2="#8250df", card="#ffffff", line="#d0d7de",
