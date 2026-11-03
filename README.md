@@ -20,7 +20,7 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 <!-- numbers:start -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/numbers-dark.svg">
-  <img alt="15 open-source PRs merged, 700 LeetCode problems solved, 3 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
+  <img alt="15 open-source PRs merged, 701 LeetCode problems solved, 4 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
 </picture>
 <!-- numbers:end -->
 
@@ -104,9 +104,12 @@ Open now: [ollama](https://github.com/ollama/ollama), [litellm](https://github.c
 
 Production bugs, written as stories with the measured fix.
 
-- [The Water That Flowed Backwards](https://medium.com/@aryan0deshmukh/the-water-that-flowed-backwards-2a7d6bb04c7c): one line of Go made meters report negative consumption.
-- [The Restart Command That Only Worked When a Human Typed It](https://medium.com/@aryan0deshmukh/the-restart-command-that-only-worked-when-a-human-typed-it-941d30319d22): the command was right; the shell was not.
-- [The Fix That Only Reached Half the Server](https://medium.com/@aryan0deshmukh/the-fix-that-only-reached-half-the-server-942aeb0665ac): one feature recovered after a config fix while the other failed for a day and a half.
+<!-- writing:start -->
+- [The Line git blame Can’t See](https://medium.com/@aryan0deshmukh/the-line-git-blame-cant-see-b151afd654f1): git blame tells you who touched a line last. For a line that’s already been deleted, it has no answer at all.
+- [The Fix That Only Reached Half the Server](https://medium.com/@aryan0deshmukh/the-fix-that-only-reached-half-the-server-942aeb0665ac): We fixed a config file, restarted the app and watched one feature recover. The other kept failing for a day and a half.
+- [The Restart Command That Only Worked When a Human Typed It](https://medium.com/@aryan0deshmukh/the-restart-command-that-only-worked-when-a-human-typed-it-941d30319d22): A supervisor noticed the crash, ran the restart and failed every time. The command was right. The shell it ran in was not.
+- [The Water That Flowed Backwards](https://medium.com/@aryan0deshmukh/the-water-that-flowed-backwards-2a7d6bb04c7c): What the meters actually report
+<!-- writing:end -->
 
 ## Get in touch
 

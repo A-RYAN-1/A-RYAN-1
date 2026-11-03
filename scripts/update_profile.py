@@ -1,20 +1,25 @@
 #!/usr/bin/env python3
 """Refresh the live parts of the profile: assets/numbers-*.svg, assets/leetcode-*.svg,
-the generated blocks of README.md (numbers alt text, logo row, contributions table, open-PR line).
+the generated blocks of README.md (numbers alt text, logo row, contributions table, open-PR line,
+writing list from the Medium feed).
 Standard library only. Needs GITHUB_TOKEN or GH_TOKEN (or `gh auth token`) for GitHub; LeetCode is public.
 Run by .github/workflows/update-profile.yml every day, or by hand from the repo root."""
 import json
 import os
 import re
 import subprocess
+import html
 import time
 import urllib.error
 import urllib.request
 from collections import defaultdict
 from pathlib import Path
+from xml.etree import ElementTree
 
 ME = "A-RYAN-1"
 LEETCODE = "DarKKKKKnight"
+MEDIUM_FEED = "https://medium.com/feed/@aryan0deshmukh"
+MAX_POSTS_LISTED = 6
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 README = ROOT / "README.md"
@@ -202,6 +207,39 @@ def open_line(open_set, merged, info):
     return f'Open now: {joined}. GitHub lists them under "Contributed to" on this profile.'
 
 
+def medium_posts():
+    """Posts from the Medium RSS feed, newest first: (title, link, subtitle). None when the feed cannot be read,
+    so the caller keeps whatever the README already shows. The feed holds the 10 newest posts only."""
+    try:
+        req = urllib.request.Request(MEDIUM_FEED, headers={"User-Agent": "Mozilla/5.0 profile-refresh"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            root = ElementTree.fromstring(r.read())
+    except (urllib.error.URLError, ElementTree.ParseError, TimeoutError, OSError) as e:
+        print(f"medium feed unavailable ({e}); keeping the Writing list as it is")
+        return None
+    ns = {"c": "http://purl.org/rss/1.0/modules/content/"}
+    out = []
+    for it in root.iter("item"):
+        title = (it.findtext("title") or "").strip()
+        link = (it.findtext("link") or "").split("?")[0].strip()
+        body = it.findtext("c:encoded", namespaces=ns) or ""
+        m = re.search(r"<h4[^>]*>(.*?)</h4>", body, re.S)
+        sub = html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).replace("\xa0", " ").strip() if m else ""
+        if title and link:
+            out.append((title, link, sub))
+    return out or None
+
+
+def writing_list(posts):
+    lines = []
+    for title, link, sub in posts[:MAX_POSTS_LISTED]:
+        if len(sub) > 150:
+            cut = sub[:150]
+            sub = (cut[: cut.rfind(" ")] if " " in cut else cut).rstrip(",;:") + "..."
+        lines.append(f"- [{title}]({link})" + (f": {sub}" if sub else ""))
+    return "\n".join(lines)
+
+
 def replace_block(text, name, body):
     return re.sub(rf"(<!-- {name}:start -->\n).*?(\n<!-- {name}:end -->)", lambda m: m.group(1) + body + m.group(2), text, flags=re.S)
 
@@ -215,7 +253,11 @@ def main():
     raw = README.read_bytes().decode("utf-8")
     text = raw.replace("\r\n", "\n")
     writing = text.split("## Writing", 1)[-1].split("## ", 1)[0]
-    posts = len(set(re.findall(r"medium\.com/@aryan0deshmukh/[\w-]+", writing)))
+    feed = medium_posts()
+    shown = len(set(re.findall(r"medium\.com/@aryan0deshmukh/[\w-]+", writing)))
+    before = re.search(r"(\d+) engineering posts", text)
+    # the feed lists only the 10 newest posts, so the count never goes down
+    posts = max(len(feed), int(before.group(1)) if before else 0) if feed else shown
     items = [(str(n_prs), "open-source PRs merged", f"{len(prs)} projects, linked below"),
              (str(lc["total"]), "LeetCode problems", f'{lc["easy"]} easy, {lc["medium"]} medium, {lc["hard"]} hard'),
              (str(posts), "engineering posts", "on production debugging"),
@@ -231,6 +273,8 @@ def main():
     text = replace_block(text, "logos", logo_row(prs, info))
     text = replace_block(text, "contrib", pr_table(prs, info))
     text = replace_block(text, "open", open_line(opened, prs, info))
+    if feed and "<!-- writing:start -->" in text:
+        text = replace_block(text, "writing", writing_list(feed))
     new = text.replace("\n", "\r\n") if "\r\n" in raw else text
     if new != raw:
         README.write_bytes(new.encode("utf-8"))
