@@ -20,7 +20,7 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 <!-- numbers:start -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/numbers-dark.svg">
-  <img alt="18 open-source PRs merged, 703 LeetCode problems solved, 4 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
+  <img alt="19 open-source PRs merged, 703 LeetCode problems solved, 4 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
 </picture>
 <!-- numbers:end -->
 
@@ -76,6 +76,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
   <a href="https://github.com/invoiceninja/invoiceninja"><img src="https://github.com/invoiceninja.png?size=64" width="48" height="48" alt="invoiceninja" title="invoiceninja"></a>
   <a href="https://github.com/prometheus-operator/prometheus-operator"><img src="https://github.com/prometheus-operator.png?size=64" width="48" height="48" alt="Prometheus Operator" title="Prometheus Operator"></a>
   <a href="https://github.com/kubernetes-sigs/external-dns"><img src="https://github.com/kubernetes-sigs.png?size=64" width="48" height="48" alt="external-dns" title="external-dns"></a>
+  <a href="https://github.com/tortoise/tortoise-orm"><img src="https://github.com/tortoise.png?size=64" width="48" height="48" alt="tortoise-orm" title="tortoise-orm"></a>
   <a href="https://github.com/sustainable-computing-io/kepler"><img src="https://github.com/sustainable-computing-io.png?size=64" width="48" height="48" alt="Kepler" title="Kepler"></a>
   <a href="https://github.com/ONEARMY/community-platform"><img src="https://github.com/ONEARMY.png?size=64" width="48" height="48" alt="community-platform" title="community-platform"></a>
   <a href="https://github.com/rubyforgood/casa"><img src="https://github.com/rubyforgood.png?size=64" width="48" height="48" alt="casa" title="casa"></a>
@@ -91,9 +92,10 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 | 4 | [invoiceninja](https://github.com/invoiceninja/invoiceninja) | A source-available invoice, quote, project and time-tracking app built with Laravel | [#13402](https://github.com/invoiceninja/invoiceninja/pull/13402) | ![stars](https://img.shields.io/github/stars/invoiceninja/invoiceninja?style=flat-square&logo=github&color=lightgrey) |
 | 5 | [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator) | Kubernetes operator for Prometheus and Alertmanager | [#8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896) [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897) [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898) | ![stars](https://img.shields.io/github/stars/prometheus-operator/prometheus-operator?style=flat-square&logo=github&color=lightgrey) |
 | 6 | [external-dns](https://github.com/kubernetes-sigs/external-dns) | Configure external DNS servers dynamically from Kubernetes resources | [#6827](https://github.com/kubernetes-sigs/external-dns/pull/6827) | ![stars](https://img.shields.io/github/stars/kubernetes-sigs/external-dns?style=flat-square&logo=github&color=lightgrey) |
-| 7 | [Kepler](https://github.com/sustainable-computing-io/kepler) | Energy use per Kubernetes pod and container, as Prometheus metrics | [#2584](https://github.com/sustainable-computing-io/kepler/pull/2584) [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591) [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592) [#2641](https://github.com/sustainable-computing-io/kepler/pull/2641) | ![stars](https://img.shields.io/github/stars/sustainable-computing-io/kepler?style=flat-square&logo=github&color=lightgrey) |
-| 8 | [community-platform](https://github.com/ONEARMY/community-platform) | Precious Plastic community platform (React, TypeScript) | [#4946](https://github.com/ONEARMY/community-platform/pull/4946) [#4950](https://github.com/ONEARMY/community-platform/pull/4950) [#4954](https://github.com/ONEARMY/community-platform/pull/4954) [#5039](https://github.com/ONEARMY/community-platform/pull/5039) | ![stars](https://img.shields.io/github/stars/ONEARMY/community-platform?style=flat-square&logo=github&color=lightgrey) |
-| 9 | [casa](https://github.com/rubyforgood/casa) | Multi-tenant case management for CASA child-advocacy programs (Ruby on Rails) | [#7319](https://github.com/rubyforgood/casa/pull/7319) | ![stars](https://img.shields.io/github/stars/rubyforgood/casa?style=flat-square&logo=github&color=lightgrey) |
+| 7 | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | Familiar asyncio ORM for python, built with relations in mind | [#2387](https://github.com/tortoise/tortoise-orm/pull/2387) | ![stars](https://img.shields.io/github/stars/tortoise/tortoise-orm?style=flat-square&logo=github&color=lightgrey) |
+| 8 | [Kepler](https://github.com/sustainable-computing-io/kepler) | Energy use per Kubernetes pod and container, as Prometheus metrics | [#2584](https://github.com/sustainable-computing-io/kepler/pull/2584) [#2591](https://github.com/sustainable-computing-io/kepler/pull/2591) [#2592](https://github.com/sustainable-computing-io/kepler/pull/2592) [#2641](https://github.com/sustainable-computing-io/kepler/pull/2641) | ![stars](https://img.shields.io/github/stars/sustainable-computing-io/kepler?style=flat-square&logo=github&color=lightgrey) |
+| 9 | [community-platform](https://github.com/ONEARMY/community-platform) | Precious Plastic community platform (React, TypeScript) | [#4946](https://github.com/ONEARMY/community-platform/pull/4946) [#4950](https://github.com/ONEARMY/community-platform/pull/4950) [#4954](https://github.com/ONEARMY/community-platform/pull/4954) [#5039](https://github.com/ONEARMY/community-platform/pull/5039) | ![stars](https://img.shields.io/github/stars/ONEARMY/community-platform?style=flat-square&logo=github&color=lightgrey) |
+| 10 | [casa](https://github.com/rubyforgood/casa) | Multi-tenant case management for CASA child-advocacy programs (Ruby on Rails) | [#7319](https://github.com/rubyforgood/casa/pull/7319) | ![stars](https://img.shields.io/github/stars/rubyforgood/casa?style=flat-square&logo=github&color=lightgrey) |
 <!-- contrib:end -->
 
 Every merged PR of mine outside my own repos: [see the full list on GitHub](https://github.com/pulls?q=is%3Apr+author%3AA-RYAN-1+is%3Amerged+-user%3AA-RYAN-1).
@@ -101,7 +103,7 @@ Every merged PR of mine outside my own repos: [see the full list on GitHub](http
 The CopyQ menu bar commit is indexed in the [XERJ Corpus Hub](https://hub.xerj.org/contributors/A-RYAN-1) as reference code for AI coding agents.
 
 <!-- open:start -->
-Open now: [ollama](https://github.com/ollama/ollama), [litellm](https://github.com/BerriAI/litellm), [rclone](https://github.com/rclone/rclone), [tidb](https://github.com/pingcap/tidb), [chatwoot](https://github.com/chatwoot/chatwoot), [temporal](https://github.com/temporalio/temporal) and 7 more. GitHub lists them under "Contributed to" on this profile.
+Open now: [ollama](https://github.com/ollama/ollama), [litellm](https://github.com/BerriAI/litellm), [rclone](https://github.com/rclone/rclone), [tidb](https://github.com/pingcap/tidb), [chatwoot](https://github.com/chatwoot/chatwoot), [temporal](https://github.com/temporalio/temporal) and 6 more. GitHub lists them under "Contributed to" on this profile.
 <!-- open:end -->
 
 ## Writing
