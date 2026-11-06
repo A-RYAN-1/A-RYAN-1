@@ -9,6 +9,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 import html
 import time
 import urllib.error
@@ -295,8 +296,18 @@ def replace_block(text, name, body):
     return re.sub(rf"(<!-- {name}:start -->\n).*?(\n<!-- {name}:end -->)", lambda m: m.group(1) + body + m.group(2), text, flags=re.S)
 
 
+def check_stories(tok):
+    """--check-stories: print the top-3 repos by stars that still need a story file; write nothing. Exit 1 if any."""
+    prs = merged_prs(tok)
+    info = {r: gh_get(f"/repos/{r}", tok) for r in prs}
+    _fixes, missing = fixes_block(prs, info)
+    return 1 if missing else 0
+
+
 def main():
     tok = token()
+    if "--check-stories" in sys.argv:
+        raise SystemExit(check_stories(tok))
     prs = merged_prs(tok)
     n_prs = sum(len(v) for v in prs.values())
     lc = leetcode()
