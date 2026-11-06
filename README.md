@@ -47,6 +47,7 @@ Mostly easy and medium problems in C++, updated daily from my [LeetCode profile]
 
 Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 
+<!-- fixes:start -->
 ### Actual Budget: bank sync outages now say what happened
 
 - Failure: when SimpleFIN returned a maintenance page, the sync banner showed "An internal error occurred". The server had since learned to answer `SERVER_DOWN`, but the client had no mapping for it.
@@ -57,7 +58,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 
 - Failure: users wanted a compact clipboard manager; the frameless option existed in code with no way to turn it on.
 - Fix: proved dragging and resizing work on Wayland with a throwaway Qt window first, then built the checkbox, resize grip and drag-from-body; the menu bar collapses to zero height so its shortcuts still work.
-- Result: eight review rounds across two PRs, both merged. [PR #3733](https://github.com/hluk/CopyQ/pull/3733), [#3732](https://github.com/hluk/CopyQ/pull/3732)
+- Result: eight review rounds across two PRs, both merged. [PR #3732](https://github.com/hluk/CopyQ/pull/3732), [#3733](https://github.com/hluk/CopyQ/pull/3733)
 - Reuse: the menu bar commit is indexed in the [XERJ Corpus Hub](https://hub.xerj.org/contributors/A-RYAN-1) as a worked reference for AI coding agents, under CopyQ's GPL-3.0 licence with attribution.
 
 ### Prometheus Operator: bad AlertmanagerConfig and ScrapeConfig input caught early
@@ -65,6 +66,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 - Failure: the operator accepted duplicate time intervals and credential-less Webex receivers that Alertmanager then refused, and its Azure discovery silently dropped settings.
 - Fix: validation for both API versions, and the missing Azure fields written with the generator's own helpers.
 - Result: every change pinned by tests that fail without it, including a golden-file case combining environment, authorization, proxy and redirects. [PR #8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896), [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897), [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898)
+<!-- fixes:end -->
 
 ## Contributions
 
@@ -98,13 +100,19 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 | 10 | [casa](https://github.com/rubyforgood/casa) | Multi-tenant case management for CASA child-advocacy programs (Ruby on Rails) | [#7319](https://github.com/rubyforgood/casa/pull/7319) | ![stars](https://img.shields.io/github/stars/rubyforgood/casa?style=flat-square&logo=github&color=lightgrey) |
 <!-- contrib:end -->
 
-Every merged PR of mine outside my own repos: [see the full list on GitHub](https://github.com/pulls?q=is%3Apr+author%3AA-RYAN-1+is%3Amerged+-user%3AA-RYAN-1).
-
-The CopyQ menu bar commit is indexed in the [XERJ Corpus Hub](https://hub.xerj.org/contributors/A-RYAN-1) as reference code for AI coding agents.
-
 <!-- open:start -->
-Open now: [ollama](https://github.com/ollama/ollama), [litellm](https://github.com/BerriAI/litellm), [rclone](https://github.com/rclone/rclone), [tidb](https://github.com/pingcap/tidb), [chatwoot](https://github.com/chatwoot/chatwoot), [temporal](https://github.com/temporalio/temporal) and 5 more. GitHub lists them under "Contributed to" on this profile.
+Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183 (+1)](https://github.com/rclone/rclone/pull/10183), [tidb #72222](https://github.com/pingcap/tidb/pull/72222), [chatwoot #16388](https://github.com/chatwoot/chatwoot/pull/16388), [temporal #12671](https://github.com/temporalio/temporal/pull/12671) and [8 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
 <!-- open:end -->
+
+---
+
+## Reference code for AI agents
+
+<!-- xerj:start -->
+My merged work is indexed in the [XERJ Corpus Hub](https://hub.xerj.org/contributors/A-RYAN-1) as worked reference code for AI coding agents: [CopyQ](https://github.com/hluk/CopyQ).
+<!-- xerj:end -->
+
+---
 
 ## Writing
 

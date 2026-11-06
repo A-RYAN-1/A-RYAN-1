@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Refresh the live parts of the profile: assets/numbers-*.svg, assets/leetcode-*.svg,
-the generated blocks of README.md (numbers alt text, logo row, contributions table, open-PR line,
+the generated blocks of README.md (numbers alt text, logo row, contributions table, open-PR line (links to the PRs), selected-fixes stories (stories/*.md, top 3 by stars),
+XERJ Corpus Hub section,
 writing list from the Medium feed).
 Standard library only. Needs GITHUB_TOKEN or GH_TOKEN (or `gh auth token`) for GitHub; LeetCode is public.
 Run by .github/workflows/update-profile.yml every day, or by hand from the repo root."""
@@ -97,20 +98,20 @@ def merged_prs(tok):
     return {r: sorted(n) for r, n in out.items()}
 
 
-def open_repos(tok):
-    """Repos outside ours where we have an open PR."""
-    out = set()
+def open_prs(tok):
+    """{repo: [pr numbers]} for open, non-draft PRs of ours in other people's repos."""
+    out = defaultdict(list)
     page = 1
     while True:
-        d = gh_get(f"/search/issues?q=author:{ME}+is:pr+is:open&per_page=100&page={page}", tok)
+        d = gh_get(f"/search/issues?q=author:{ME}+is:pr+is:open+draft:false&per_page=100&page={page}", tok)
         for it in d["items"]:
             repo = it["repository_url"].split("/repos/")[1]
-            if repo.split("/")[0].lower() not in SKIP_OWNERS:
-                out.add(repo)
+            if repo.split("/")[0].lower() not in SKIP_OWNERS and not it.get("draft"):
+                out[repo].append(it["number"])
         if len(d["items"]) < 100:
             break
         page += 1
-    return out
+    return {r: sorted(n) for r, n in out.items()}
 
 
 def live_projects(tok):
@@ -194,17 +195,67 @@ def logo_row(prs, info):
     return "\n".join(out)
 
 
-def open_line(open_set, merged, info):
-    names = []
-    ordered = sorted(open_set, key=lambda r: (-info[r]["stargazers_count"], r))
-    for repo in ordered[:6]:
-        names.append(f"[{display(repo, info[repo])[0]}](https://github.com/{repo})")
-    if not names:
+def open_line(open_map, info):
+    """One link per repo, straight to its newest open PR; the rest counted and linked to the search."""
+    ordered = sorted(open_map, key=lambda r: (-info[r]["stargazers_count"], r))
+    if not ordered:
         return ""
-    if len(ordered) > 6:
-        names.append(f"{len(ordered) - 6} more")
-    joined = ", ".join(names[:-1]) + " and " + names[-1] if len(names) > 1 else names[0]
-    return f'Open now: {joined}. GitHub lists them under "Contributed to" on this profile.'
+    parts = []
+    for repo in ordered[:6]:
+        nums = open_map[repo]
+        label = f"{display(repo, info[repo])[0]} #{nums[-1]}" + (f" (+{len(nums) - 1})" if len(nums) > 1 else "")
+        parts.append(f"[{label}](https://github.com/{repo}/pull/{nums[-1]})")
+    rest = len(ordered) - 6
+    if rest > 0:
+        q = f"https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3A{ME}+-user%3A{ME}"
+        parts.append(f"[{rest} more]({q})")
+    joined = ", ".join(parts[:-1]) + " and " + parts[-1] if len(parts) > 1 else parts[0]
+    return f"Open now: {joined}."
+
+
+def prs_links(repo, nums):
+    return ", ".join(f"[PR #{n}](https://github.com/{repo}/pull/{n})" if i == 0 else f"[#{n}](https://github.com/{repo}/pull/{n})"
+                     for i, n in enumerate(nums))
+
+
+def fixes_block(prs, info):
+    """Top 3 repos by live stars that have a story file in stories/. Reports higher-starred repos without one."""
+    chosen, missing = [], []
+    for repo, nums in ranked(prs, info):
+        f = ROOT / "stories" / (repo.replace("/", "__") + ".md")
+        if f.exists():
+            if len(chosen) < 3:
+                chosen.append((repo, nums, f.read_text(encoding="utf-8").strip().replace(chr(13) + chr(10), chr(10))))
+        elif len(chosen) < 3:
+            missing.append(repo)
+    out = []
+    for repo, nums, body in chosen:
+        body = re.sub(r"^(- Result: .*)$", lambda m: m.group(1) + " " + prs_links(repo, nums), body, flags=re.M)
+        out.append(body)
+    for repo in missing:
+        print(f"MISSING STORY: {repo} ranks in the top 3 by stars but has no stories/{repo.replace('/', '__')}.md")
+    return (chr(10) * 2).join(out), missing
+
+
+XERJ_URL = f"https://hub.xerj.org/contributors/{ME}"
+
+
+def xerj_block(prs):
+    """Repos indexed in the XERJ Corpus Hub, read from the contributor page title ('<repo> corpus')."""
+    try:
+        with urllib.request.urlopen(urllib.request.Request(XERJ_URL, headers={"User-Agent": "profile-updater"}), timeout=30) as r:
+            page = r.read().decode("utf-8", "replace")
+    except (urllib.error.URLError, OSError):
+        return None
+    names = re.findall(r"<title>[^<]*?: ([^<:]+?) corpus \| XERJ Hub</title>", page)
+    if not names:
+        return None
+    links = []
+    for n in names:
+        repo = next((r for r in prs if r.split("/")[1].lower() == n.lower()), None)
+        links.append(f"[{n}](https://github.com/{repo})" if repo else n)
+    return (f"My merged work is indexed in the [XERJ Corpus Hub]({XERJ_URL}) as worked reference code for AI coding agents: "
+            + ", ".join(links) + ".")
 
 
 def medium_posts():
@@ -268,11 +319,17 @@ def main():
         (ASSETS / f"leetcode-{n}.svg").write_text(leetcode_svg(c, lc), encoding="utf-8")
     alt = f"{n_prs} open-source PRs merged, {lc['total']} LeetCode problems solved, {posts} engineering posts, {live} projects live"
     text = re.sub(r'(<!-- numbers:start -->.*?<img alt=")[^"]*(")', lambda m: m.group(1) + alt + m.group(2), text, flags=re.S)
-    opened = open_repos(tok)
-    info = {r: gh_get(f"/repos/{r}", tok) for r in set(prs) | opened}
+    opened = open_prs(tok)
+    info = {r: gh_get(f"/repos/{r}", tok) for r in set(prs) | set(opened)}
     text = replace_block(text, "logos", logo_row(prs, info))
     text = replace_block(text, "contrib", pr_table(prs, info))
-    text = replace_block(text, "open", open_line(opened, prs, info))
+    text = replace_block(text, "open", open_line(opened, info))
+    fixes, _missing = fixes_block(prs, info)
+    if fixes:
+        text = replace_block(text, "fixes", fixes)
+    xerj = xerj_block(prs)
+    if xerj:
+        text = replace_block(text, "xerj", xerj)
     if feed and "<!-- writing:start -->" in text:
         text = replace_block(text, "writing", writing_list(feed))
     new = text.replace("\n", "\r\n") if "\r\n" in raw else text
