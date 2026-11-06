@@ -54,18 +54,18 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 - Fix: a new `server-down` sync status carried through the account model, the database type and the error mapping, with its own banner message. No migration was needed because the column is free text.
 - Result: three tests, one per layer, that fail without the change and pass with it; typecheck clean. [PR #9299](https://github.com/actualbudget/actual/pull/9299)
 
+### Rook: encrypted object stores can use a Vault transit engine mounted anywhere
+
+- Failure: Rook always sent SSE-S3 requests to `/v1/transit`, so a Vault transit engine mounted at another path failed with `Request to Vault failed with error -13`.
+- Fix: my first version honoured the existing `VAULT_BACKEND_PATH`; against a real RGW and Vault I reproduced the reviewer's warning that it would break stores whose examples already set that key. I switched to a new opt-in `VAULT_TRANSIT_BACKEND_PATH`, so existing stores render the same flags as before.
+- Result: five real-RGW runs covering the old behaviour, the break, the final design and the original bug, plus a seven-case unit test that checks both the token and Vault Agent flags. Merged in 15 days. [PR #18598](https://github.com/rook/rook/pull/18598)
+
 ### CopyQ: a frameless window and a hidden menu bar
 
 - Failure: users wanted a compact clipboard manager; the frameless option existed in code with no way to turn it on.
 - Fix: proved dragging and resizing work on Wayland with a throwaway Qt window first, then built the checkbox, resize grip and drag-from-body; the menu bar collapses to zero height so its shortcuts still work.
 - Result: eight review rounds across two PRs, both merged. [PR #3732](https://github.com/hluk/CopyQ/pull/3732), [#3733](https://github.com/hluk/CopyQ/pull/3733)
 - Reuse: the menu bar commit is indexed in the [XERJ Corpus Hub](https://hub.xerj.org/contributors/A-RYAN-1) as a worked reference for AI coding agents, under CopyQ's GPL-3.0 licence with attribution.
-
-### Prometheus Operator: bad AlertmanagerConfig and ScrapeConfig input caught early
-
-- Failure: the operator accepted duplicate time intervals and credential-less Webex receivers that Alertmanager then refused, and its Azure discovery silently dropped settings.
-- Fix: validation for both API versions, and the missing Azure fields written with the generator's own helpers.
-- Result: every change pinned by tests that fail without it, including a golden-file case combining environment, authorization, proxy and redirects. [PR #8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896), [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897), [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898)
 <!-- fixes:end -->
 
 ## Contributions
