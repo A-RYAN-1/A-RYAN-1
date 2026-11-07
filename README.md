@@ -7,7 +7,7 @@
 
 <br>
 
-[**Portfolio**](https://a-ryan-1.github.io/Portfolio-Website/) &nbsp;|&nbsp; [**Open source**](https://a-ryan-1.github.io/oss/) &nbsp;|&nbsp; [**Projects**](https://a-ryan-1.github.io/builds/) &nbsp;|&nbsp; [**LinkedIn**](https://www.linkedin.com/in/aryan-deshmukh-793840259/) &nbsp;|&nbsp; [**Medium**](https://medium.com/@aryan0deshmukh) &nbsp;|&nbsp; [**LeetCode**](https://leetcode.com/u/DarKKKKKnight/)
+[**Portfolio**](https://a-ryan-1.github.io/Portfolio-Website/) &nbsp;|&nbsp; [**Open source**](https://a-ryan-1.github.io/oss/) &nbsp;|&nbsp; [**Projects**](https://a-ryan-1.github.io/builds/) &nbsp;|&nbsp; [**Writing**](https://a-ryan-1.github.io/blogs/) &nbsp;|&nbsp; [**LinkedIn**](https://www.linkedin.com/in/aryan-deshmukh-793840259/) &nbsp;|&nbsp; [**Medium**](https://medium.com/@aryan0deshmukh) &nbsp;|&nbsp; [**LeetCode**](https://leetcode.com/u/DarKKKKKnight/)
 
 </div>
 
