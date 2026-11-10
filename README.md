@@ -20,7 +20,7 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 <!-- numbers:start -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/numbers-dark.svg">
-  <img alt="21 open-source PRs merged, 706 LeetCode problems solved, 4 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
+  <img alt="21 open-source PRs merged, 707 LeetCode problems solved, 4 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
 </picture>
 <!-- numbers:end -->
 
@@ -103,7 +103,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 <!-- contrib:end -->
 
 <!-- open:start -->
-Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183 (+1)](https://github.com/rclone/rclone/pull/10183), [tidb #72222](https://github.com/pingcap/tidb/pull/72222), [gorm #7898](https://github.com/go-gorm/gorm/pull/7898), [chatwoot #16388](https://github.com/chatwoot/chatwoot/pull/16388) and [9 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
+Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183 (+1)](https://github.com/rclone/rclone/pull/10183), [tidb #72222](https://github.com/pingcap/tidb/pull/72222), [gorm #7898](https://github.com/go-gorm/gorm/pull/7898), [chatwoot #16388](https://github.com/chatwoot/chatwoot/pull/16388) and [11 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
 <!-- open:end -->
 
 ---
