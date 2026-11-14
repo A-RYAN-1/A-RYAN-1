@@ -20,7 +20,7 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 <!-- numbers:start -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/numbers-dark.svg">
-  <img alt="23 open-source PRs merged, 708 LeetCode problems solved, 4 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
+  <img alt="24 open-source PRs merged, 710 LeetCode problems solved, 4 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
 </picture>
 <!-- numbers:end -->
 
@@ -93,7 +93,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 | 1 | [rclone](https://github.com/rclone/rclone) | "rsync for cloud storage" - Google Drive, S3, Dropbox, Backblaze B2, One Drive, Swift,... | [#10171](https://github.com/rclone/rclone/pull/10171) | ![stars](https://img.shields.io/github/stars/rclone/rclone?style=flat-square&logo=github&color=lightgrey) |
 | 2 | [tidb](https://github.com/pingcap/tidb) | TiDB is built for agentic workloads that grow unpredictably, with ACID guarantees and... | [#72222](https://github.com/pingcap/tidb/pull/72222) | ![stars](https://img.shields.io/github/stars/pingcap/tidb?style=flat-square&logo=github&color=lightgrey) |
 | 3 | [actual](https://github.com/actualbudget/actual) | Local-first personal finance and budgeting app (TypeScript) | [#9299](https://github.com/actualbudget/actual/pull/9299) | ![stars](https://img.shields.io/github/stars/actualbudget/actual?style=flat-square&logo=github&color=lightgrey) |
-| 4 | [rook](https://github.com/rook/rook) | Storage Orchestration for Kubernetes | [#18598](https://github.com/rook/rook/pull/18598) | ![stars](https://img.shields.io/github/stars/rook/rook?style=flat-square&logo=github&color=lightgrey) |
+| 4 | [rook](https://github.com/rook/rook) | Storage Orchestration for Kubernetes | [#18598](https://github.com/rook/rook/pull/18598) [#18727](https://github.com/rook/rook/pull/18727) | ![stars](https://img.shields.io/github/stars/rook/rook?style=flat-square&logo=github&color=lightgrey) |
 | 5 | [CopyQ](https://github.com/hluk/CopyQ) | Clipboard manager with advanced features (C++, Qt) | [#3732](https://github.com/hluk/CopyQ/pull/3732) [#3733](https://github.com/hluk/CopyQ/pull/3733) | ![stars](https://img.shields.io/github/stars/hluk/CopyQ?style=flat-square&logo=github&color=lightgrey) |
 | 6 | [invoiceninja](https://github.com/invoiceninja/invoiceninja) | A source-available invoice, quote, project and time-tracking app built with Laravel | [#13402](https://github.com/invoiceninja/invoiceninja/pull/13402) | ![stars](https://img.shields.io/github/stars/invoiceninja/invoiceninja?style=flat-square&logo=github&color=lightgrey) |
 | 7 | [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator) | Kubernetes operator for Prometheus and Alertmanager | [#8896](https://github.com/prometheus-operator/prometheus-operator/pull/8896) [#8897](https://github.com/prometheus-operator/prometheus-operator/pull/8897) [#8898](https://github.com/prometheus-operator/prometheus-operator/pull/8898) | ![stars](https://img.shields.io/github/stars/prometheus-operator/prometheus-operator?style=flat-square&logo=github&color=lightgrey) |
@@ -106,7 +106,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 <!-- contrib:end -->
 
 <!-- open:start -->
-Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [next.js #101643](https://github.com/vercel/next.js/pull/101643), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183](https://github.com/rclone/rclone/pull/10183), [gorm #7898](https://github.com/go-gorm/gorm/pull/7898), [chatwoot #16388](https://github.com/chatwoot/chatwoot/pull/16388) and [13 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
+Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [next.js #101643](https://github.com/vercel/next.js/pull/101643), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183](https://github.com/rclone/rclone/pull/10183), [gorm #7898](https://github.com/go-gorm/gorm/pull/7898), [chatwoot #16388](https://github.com/chatwoot/chatwoot/pull/16388) and [12 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
 <!-- open:end -->
 
 ---
