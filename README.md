@@ -20,7 +20,7 @@ Joined as an intern in January 2026 and converted to full-time in six months. B.
 <!-- numbers:start -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/numbers-dark.svg">
-  <img alt="24 open-source PRs merged, 711 LeetCode problems solved, 4 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
+  <img alt="24 open-source PRs merged, 712 LeetCode problems solved, 5 engineering posts, 7 projects live" src="assets/numbers-light.svg" width="100%">
 </picture>
 <!-- numbers:end -->
 
@@ -106,7 +106,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 <!-- contrib:end -->
 
 <!-- open:start -->
-Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [next.js #101804 (+1)](https://github.com/vercel/next.js/pull/101804), [grafana #137887](https://github.com/grafana/grafana/pull/137887), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183](https://github.com/rclone/rclone/pull/10183), [gorm #7898](https://github.com/go-gorm/gorm/pull/7898) and [14 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
+Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [next.js #101804 (+1)](https://github.com/vercel/next.js/pull/101804), [grafana #137887](https://github.com/grafana/grafana/pull/137887), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183](https://github.com/rclone/rclone/pull/10183), [gorm #7898](https://github.com/go-gorm/gorm/pull/7898) and [12 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
 <!-- open:end -->
 
 ---
@@ -124,6 +124,7 @@ My merged work is indexed in the [XERJ Corpus Hub](https://hub.xerj.org/contribu
 Production bugs, written as stories with the measured fix.
 
 <!-- writing:start -->
+- [size-4 Is Not 16 Pixels](https://medium.com/@aryan0deshmukh/size-4-is-not-16-pixels-58d69e9c15f1): The compiled CSS was byte-identical at every spacing value. The icon still rendered 20px instead of 16px.
 - [The Line git blame Can’t See](https://medium.com/@aryan0deshmukh/the-line-git-blame-cant-see-b151afd654f1): git blame tells you who touched a line last. For a line that’s already been deleted, it has no answer at all.
 - [The Fix That Only Reached Half the Server](https://medium.com/@aryan0deshmukh/the-fix-that-only-reached-half-the-server-942aeb0665ac): We fixed a config file, restarted the app and watched one feature recover. The other kept failing for a day and a half.
 - [The Restart Command That Only Worked When a Human Typed It](https://medium.com/@aryan0deshmukh/the-restart-command-that-only-worked-when-a-human-typed-it-941d30319d22): A supervisor noticed the crash, ran the restart and failed every time. The command was right. The shell it ran in was not.
