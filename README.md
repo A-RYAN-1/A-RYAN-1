@@ -106,7 +106,7 @@ Upstream fixes, each reproduced before claiming it, with the evidence in the PR.
 <!-- contrib:end -->
 
 <!-- open:start -->
-Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [next.js #101804 (+1)](https://github.com/vercel/next.js/pull/101804), [grafana #137887](https://github.com/grafana/grafana/pull/137887), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183](https://github.com/rclone/rclone/pull/10183), [gorm #7898](https://github.com/go-gorm/gorm/pull/7898) and [12 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
+Open now: [ollama #19363](https://github.com/ollama/ollama/pull/19363), [next.js #101804 (+1)](https://github.com/vercel/next.js/pull/101804), [grafana #137887](https://github.com/grafana/grafana/pull/137887), [litellm #50038 (+1)](https://github.com/BerriAI/litellm/pull/50038), [rclone #10183](https://github.com/rclone/rclone/pull/10183), [chatwoot #16388](https://github.com/chatwoot/chatwoot/pull/16388) and [13 more](https://github.com/pulls?q=is%3Apr+is%3Aopen+draft%3Afalse+author%3AA-RYAN-1+-user%3AA-RYAN-1).
 <!-- open:end -->
 
 ---
